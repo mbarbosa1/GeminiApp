@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
+import jwt
 
 SECRET_KEY = "a-string-secret-at-least-256-bits-long"
 ALGORITHM = "HS256"
@@ -23,6 +23,6 @@ async def get_user_identifier(token: Optional[str] = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except JWTError:
+    except:
         raise credentials_exception
     return username
