@@ -4,9 +4,11 @@ from pydantic import BaseModel
 from .ai.gemini import Gemini
 from dependencies import get_user_identifier
 from throttling import apply_rate_limit
+GLOBAL_RATE_LIMIT = 3
+GLOBAL_TIME_WINDOW_SECONDS = 60
 
 #--- App Initialization ---
-app = FastAPI()
+workoutApp = FastAPI()
 
 
 #--- AI Configuration ---
@@ -37,7 +39,7 @@ class ChatResponse(BaseModel):
 
 
 #--- API Endpoints ---
-@app.post("/chat", response_model=ChatResponse)
+@workoutApp.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest, user_id: str = Depends(get_user_identifier)):
     apply_rate_limit(user_id)
     response_text = ai_platform.chat(request.prompt)
