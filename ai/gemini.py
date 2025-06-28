@@ -1,6 +1,9 @@
 import os
 import google.generativeai as genai
 from .base import AIPlatform
+import time
+import json
+from typing import Dict, List, Optional, Any
 # from google.cloud import texttospeech
 import pyttsx3
 import threading
@@ -16,7 +19,7 @@ class Gemini(AIPlatform):
 
         # self.textToSpeechClient = texttospeech.TextToSpeechClient()
         self.tts_engine = pyttsx3.init()
-        self._setup_voice_profiles()
+        self.setUpVoiceProfiles()
 
     def chat(self, prompt: str) -> str:
         if self.system_prompt:
@@ -130,7 +133,7 @@ class Gemini(AIPlatform):
 
     def _speak_text(self, str):
         try:
-            self.tts_engine.say(text)
+            self.tts_engine.say(str)
         except Exception as e:
             print(f"TTS Error: {e}")
     
@@ -149,10 +152,10 @@ class Gemini(AIPlatform):
         return text_response
     
 
-    
-    def workoutPlanChatBot(self, inputs):
-        #code the AI chatbot
-        #Gemini (text-based prompts)
-    def formCorrectionFeedback(self, input):
-        #Gemini (pose summary → feedback text)
+
+    # def workoutPlanChatBot(self, inputs):
+    #     #code the AI chatbot
+    #     #Gemini (text-based prompts)
+    # def formCorrectionFeedback(self, input):
+    #     #Gemini (pose summary → feedback text)
     
