@@ -127,9 +127,9 @@ class Gemini(AIPlatform):
         }
     
         # Print available voices for debugging
-        print("Available TTS voices:")
-        for i, voice in enumerate(voices):
-            print(f"  {i}: {voice.name} ({voice.id})")
+        # print("Available TTS voices:")
+        # for i, voice in enumerate(voices):
+        #     print(f"  {i}: {voice.name} ({voice.id})")
 
     def _speak_text(self, str):
         try:
@@ -153,9 +153,69 @@ class Gemini(AIPlatform):
     
 
 
-    # def workoutPlanChatBot(self, inputs):
-    #     #code the AI chatbot
-    #     #Gemini (text-based prompts)
+    def workoutPlanChatBot(self, inputs: Dict[str, Any]) -> str:
+        #Create a workout unique workout plan for user using gemini
+
+        #Validate required inputs
+        required_fields = ['goal', 'fitness_level', 'available_time_per_session', 'days_per_week']
+        missing_fields = [field for field in required_fields if not inputs.get(field)]
+
+        if missing_fields:
+            return f"Missing required information: {', '.join(missing_fields)}. Please provide these details for a proper workout plan. "
+
+        prompt = (f"""
+        You are a certified fitness trainer AI with expertise in exercise science and program design.
+        Create a comprehensive, personalized workout plan based on the following profile:
+
+        PERSONAL PROFILE:
+        Name: {inputs.get('name', 'User')}
+        Gender: {inputs.get('gender')}
+        Height: {inputs.get('height')}
+        Weight: {inputs.get('weight')}
+        Primary Goal: {inputs.get('goal')}
+        Current Fitness Level: {inputs.get('fitness_level')}
+        Available Equipment: {inputs.get('available_equipment', 'Bodyweight only')}
+        Time Per Session: {inputs.get('available_time_per_session')} minutes
+        Training Days Per Week: {inputs.get('days_per_week')}
+        Target Muscle Groups: {inputs.get('target_muscle_groups', 'Full body')}
+        Any Limitations/Injuries: {inputs.get('limitations', 'None specified')}
+        Experience Level: {inputs.get('experience_level', 'Beginner')}
+
+        WORKOUT PLAN STRUCTURE:
+        1. **Program Overview** (2-3 sentences about the approach)
+        
+        2. **Weekly Schedule** 
+           - Day-by-day breakdown with specific focus areas
+           - Rest day recommendations
+        
+        3. **Detailed Daily Workouts**
+           For each training day include:
+           - Warm-up routine (5-10 minutes)
+           - Main exercises with sets × reps or duration
+           - Rest periods between sets
+           - Exercise modifications for different levels
+           - Cool-down routine (5-10 minutes)
+        
+        4. **Progressive Overload Guidelines**
+           - How to increase difficulty over time
+           - When to progress (weekly/biweekly)
+        
+        5. **Form Cues & Safety Tips**
+           - Key technique points for main exercises
+           - Common mistakes to avoid
+        
+        6. **Motivational Closing**
+           - Encouraging message
+           - Expected timeline for results
+           - Reminder about consistency
+
+        Make the plan specific, actionable, and appropriate for their fitness level.
+        """
+                  )
+        
+
+        return self.chat(prompt)
+
+
     # def formCorrectionFeedback(self, input):
-    #     #Gemini (pose summary → feedback text)
-    
+    # #     #Gemini (pose summary → feedback text)

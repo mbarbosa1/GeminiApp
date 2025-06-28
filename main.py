@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from ai.gemini import Gemini
 from dependencies import get_user_identifier
 from throttling import apply_rate_limit
+from typing import Optional, Dict, Any
 import sys 
 import time
 import dotenv
@@ -38,8 +39,19 @@ ai_platform = Gemini(api_key=gemini_api_key, system_prompt=system_prompt)
 
 
 #--- Pydantic Models ---
-class ChatRequest(BaseModel):
-    prompt: str
+class WorkoutPlanRequest(BaseModel):
+    name: Optional[str] = "User"
+    gender: Optional[str] = None
+    height: Optional[str] = None
+    weight: Optional[str] = None
+    goal: str
+    fitness_level: str
+    available_equipment: Optional[str] = "Bodyweight only"
+    available_time_per_session: str
+    days_per_week: int
+    target_muscle_groups: Optional[str] = "Full Body"
+    limitations: Optional[str] = "None specified"
+    experience_level: Optional[str] = "Beginner"
 
 
 class ChatResponse(BaseModel):
@@ -47,11 +59,17 @@ class ChatResponse(BaseModel):
 
 
 #--- API Endpoints ---
-@workoutApp.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest, user_id: str = Depends(get_user_identifier)):
+# @workoutApp.post("/chat", response_model=ChatResponse)
+# async def chat(request: ChatRequest, user_id: str = Depends(get_user_identifier)):
+#     apply_rate_limit(user_id)
+#     response_text = ai_platform.chat(request.prompt)
+#     return ChatResponse(response=response_text)
+
+@workoutApp.post("/generate-workout")
+async def generate_workout(request: WorkoutPlanRequest, user_id: str = Depends(get_user_identifier)):
     apply_rate_limit(user_id)
-    response_text = ai_platform.chat(request.prompt)
-    return ChatResponse(response=response_text)
+    plan = ai_platform.workoutPlanChatBot(request.Dict[str, Any]())
+    return {"workout_plan": plan}
 
 
 @workoutApp.get("/")
