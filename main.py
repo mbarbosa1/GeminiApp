@@ -2,8 +2,8 @@ import os
 from fastapi import Depends, FastAPI
 from pydantic import BaseModel
 from .ai.gemini import Gemini
-from .auth.dependencies import get_user_identifier
-from .auth.throttling import apply_rate_limit
+from dependencies import get_user_identifier
+from throttling import apply_rate_limit
 
 #--- App Initialization ---
 app = FastAPI()

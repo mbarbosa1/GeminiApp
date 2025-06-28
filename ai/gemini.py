@@ -17,13 +17,13 @@ class Gemini(AIPlatform):
 
         response = self.model.generate_content(prompt)
         return response.text
-    def voiceToneOutput(self, input):
+    # def voiceToneOutput(self, input):
         #textToSpeech
         #Gemini (text generation) → Google TTS (audio)
 
-    def workoutPlanChatBot(self, inputs):
-        #code the AI chatbot
-        #Gemini (text-based prompts)
-    def formCorrectionFeedback(self, input):
-        #Gemini (pose summary → feedback text)
-    def realTimeChatbot(self, input):
+    # def workoutPlanChatBot(self, inputs):
+    #     #code the AI chatbot
+    #     #Gemini (text-based prompts)
+    # def formCorrectionFeedback(self, input):
+    #     #Gemini (pose summary → feedback text)
+    # def realTimeChatbot(self, input):
