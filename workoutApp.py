@@ -122,17 +122,17 @@ async def predict(file: UploadFile = File(...),
     return {"predictions": preds.tolist()}
 
 #── (Optional) Test functions & entrypoint ──────────────────────────────────────
-def testVoice(gemini_instance):
-    # … your existing tests …
-    pass
+# def testVoice(gemini_instance):
+#     # … your existing tests …
+#     pass
 
-def main():
-    print("Start tests")
-    try:
-        testVoice(ai_platform)
-        print("All tests completed successfully!")
-    except Exception as e:
-        print(f"Test execution failed: {e}")
+# def main():
+#     print("Start tests")
+#     try:
+#         testVoice(ai_platform)
+#         print("All tests completed successfully!")
+#     except Exception as e:
+#         print(f"Test execution failed: {e}")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

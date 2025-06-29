@@ -76,68 +76,68 @@ async def generate_workout(request: WorkoutPlanRequest, user_id: str = Depends(g
 async def root():
     return {"message": "API is running"}
 
-def testVoice(gemini_instance):
-    #testing a couple of the voices for our gemini workout partner
-    print("Testing Voice Tone")
+# def testVoice(gemini_instance):
+#     #testing a couple of the voices for our gemini workout partner
+#     print("Testing Voice Tone")
 
-    #Test prompts designed for each tone
-    tone_tests = {
-        "neutral": [
-            "Good morning, how can I help you today?",
-            "Please explain the weather forecast",
-            "What are the benefits of reading books?"
-        ],
-        "gymbro": [
-            "Tell me about building muscle and getting swole!",
-            "What's the best pre-workout motivation?",
-            "How do I crush my fitness goals this week?"
-        ],
-        "girly": [
-            "What are some cute self-care ideas?",
-            "Tell me about your favorite skincare routine",
-            "How can I make my day more sparkly and fun?"
-        ]
-    }
-    for tone, prompts in tone_tests.items():
-        print(f"🗣️ Testing {tone.upper()} tone:")
-        for i, prompt in enumerate(prompts, 1):
-            try:
-                print(f"  Test {i}: {prompt}")
-                # Test with async speech (won't block)
-                response = gemini_instance.voiceToneOutput(prompt, tone=tone, speak_async=True)
-                print(f"  Response: {response}")
-                time.sleep(2)  # Brief pause between tests
-            except Exception as e:
-                print(f"   Error in {tone} tone test {i}: {e}")
-        print()
-    def test_voice_setup(gemini_instance):
-        """Test voice profile setup"""
-        print("🔧 Testing Voice Profile Setup...")
-        print("-" * 50)
+#     #Test prompts designed for each tone
+#     tone_tests = {
+#         "neutral": [
+#             "Good morning, how can I help you today?",
+#             "Please explain the weather forecast",
+#             "What are the benefits of reading books?"
+#         ],
+#         "gymbro": [
+#             "Tell me about building muscle and getting swole!",
+#             "What's the best pre-workout motivation?",
+#             "How do I crush my fitness goals this week?"
+#         ],
+#         "girly": [
+#             "What are some cute self-care ideas?",
+#             "Tell me about your favorite skincare routine",
+#             "How can I make my day more sparkly and fun?"
+#         ]
+#     }
+#     for tone, prompts in tone_tests.items():
+#         print(f"🗣️ Testing {tone.upper()} tone:")
+#         for i, prompt in enumerate(prompts, 1):
+#             try:
+#                 print(f"  Test {i}: {prompt}")
+#                 # Test with async speech (won't block)
+#                 response = gemini_instance.voiceToneOutput(prompt, tone=tone, speak_async=True)
+#                 print(f"  Response: {response}")
+#                 time.sleep(2)  # Brief pause between tests
+#             except Exception as e:
+#                 print(f"   Error in {tone} tone test {i}: {e}")
+#         print()
+    # def test_voice_setup(gemini_instance):
+    #     """Test voice profile setup"""
+    #     print(" Testing Voice Profile Setup...")
+    #     print("-" * 50)
     
-        try:
-            # This should print available voices
-            gemini_instance.setUpVoiceProfiles()
-            print("✅ Voice profiles setup completed")
-        except Exception as e:
-            print(f"Voice setup error: {e}")
+    #     try:
+    #         # This should print available voices
+    #         gemini_instance.setUpVoiceProfiles()
+    #         print("Voice profiles setup completed")
+    #     except Exception as e:
+    #         print(f"Voice setup error: {e}")
     
-        print()
-    def main():
-        print("Start tests")
-        try:
-            # Test 1: Voice Setup
-            test_voice_setup(ai_platform)
+    #     print()
+    # def main():
+    #     print("Start tests")
+    #     try:
+    #         # Test 1: Voice Setup
+    #         test_voice_setup(ai_platform)
         
-            # Test 2: Basic Chat
-            #test_basic_chat(ai_platform)
+    #         # Test 2: Basic Chat
+    #         #test_basic_chat(ai_platform)
         
-            # Test 3: Voice Tones
-            testVoice(ai_platform)
+    #         # Test 3: Voice Tones
+    #         testVoice(ai_platform)
         
-            print(" All tests completed successfully!")
-        except KeyboardInterrupt:
-            print("\n Tests interrupted by user")
-        except Exception as e:
-            print(f"\n Test execution failed: {e}")
+    #         print(" All tests completed successfully!")
+    #     except KeyboardInterrupt:
+    #         print("\n Tests interrupted by user")
+    #     except Exception as e:
+    #         print(f"\n Test execution failed: {e}")
         

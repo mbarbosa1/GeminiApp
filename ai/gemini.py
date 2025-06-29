@@ -217,5 +217,30 @@ class Gemini(AIPlatform):
         return self.chat(prompt)
 
 
-    # def formCorrectionFeedback(self, input):
-    # #     #Gemini (pose summary → feedback text)
+    from typing import List
+
+    def formCorrectionFeedback(self, score: int, feedback_list: List[str], exercise_name: str = "an exercise") -> str:
+        """
+        Generates AI feedback based on CV pose analysis.
+
+        Args:
+            score (int): Pose quality score from 0–100
+            feedback_list (List[str]): Observations from pose analysis
+            exercise_name (str): Name of the exercise, e.g. "push-up", "squat"
+
+        Returns:
+            str: Natural-language form feedback from Gemini
+        """
+
+        tone = "encouraging" if score >= 70 else "constructive and supportive"
+
+        prompt = (
+            f"You are a {tone} virtual fitness coach helping a user improve their form.\n"
+            f"They are performing a {exercise_name}.\n\n"
+            f"The computer vision system gave them a score of {score}/100.\n"
+            f"Here are the posture observations:\n"
+            + "\n".join(f"- {item}" for item in feedback_list) +
+            "\n\nGive personalized feedback to help them improve their form. Be specific, clear, and motivational."
+        )
+
+        return self.chat(prompt)

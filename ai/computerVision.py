@@ -100,7 +100,7 @@ def main():
     exercise_mode = 'pushup'
     
     print("AI Fitness Form Checker")
-    print("Press 'p' for pushup mode, 's' for squat mode, 'q' to quit")
+    #print("Press 'p' for pushup mode, 's' for squat mode, 'q' to quit")
     
     while cap.isOpened():
         ret, frame = cap.read()
